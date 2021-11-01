@@ -2,6 +2,7 @@ const Furniture = require('../models/Furniture');
 
 exports.getAll = () => Furniture.find();
 exports.getOne = (furnitureId) => Furniture.findById(furnitureId);
+exports.getOwn = (userId) => Furniture.find({ _ownerId: userId });
 
 exports.create = (furnitureData) => Furniture.create(furnitureData);
 
