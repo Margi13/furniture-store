@@ -5,11 +5,25 @@ const userService = require('../services/userService');
 router.post('/register', async(req, res) => {
 
     console.log(req.body);
+
     let { email, password } = req.body;
 
-    let user = await userService.register({ email, password });
+    try {
+        let user = await userService.register({ email, password });
+        let token = await userService.login({ email, password });
 
-    res.json({ ok: true });
+        res.json({
+            _id: user._id,
+            email: user.email,
+            accessToken: token
+        });
+
+    } catch (error) {
+        res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
 })
 
 
