@@ -12,6 +12,6 @@ const furnitureSchema = mongoose.Schema({
 });
 
 
-const Furniture = mongoose.model('User', furnitureSchema);
+const Furniture = mongoose.model('Furniture', furnitureSchema);
 
 module.exports = Furniture;
