@@ -4,38 +4,63 @@ const furnitureService = require('../services/furnitureService');
 
 const { isAuth } = require('../middlewares/authMiddleware');
 
-router.get('/', async(req, res) => {
-    if (req.query.where) {
+router.get('/', async(req, res, next) => {
+    try {
 
-        let furniture = await furnitureService.getOwn(req.user._id);
-        res.json(furniture);
+        if (req.query.where) {
 
-    } else {
-        let furniture = await furnitureService.getAll();
-        res.json(furniture);
+            let furniture = await furnitureService.getOwn(req.user._id);
+            res.json(furniture);
+
+        } else {
+            let furniture = await furnitureService.getAll();
+            res.json(furniture);
+        }
+    } catch (error) {
+        next(error);
     }
 });
-router.post('/', isAuth, async(req, res) => {
-    await furnitureService.create({...req.body, _ownerId: req.user._id });
+router.post('/', isAuth, async(req, res, next) => {
+    try {
 
-    res.json({ ok: true });
+        await furnitureService.create({...req.body, _ownerId: req.user._id });
+
+        res.json({ ok: true });
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.get('/:furnitureId', async(req, res) => {
-    let furniture = await furnitureService.getOne(req.params.furnitureId);
+router.get('/:furnitureId', async(req, res, next) => {
+    try {
 
-    res.json(furniture);
+        let furniture = await furnitureService.getOne(req.params.furnitureId);
+
+        res.json(furniture);
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.put('/:furnitureId', async(req, res) => {
-    await furnitureService.update(req.params.furnitureId, req.body);
+router.put('/:furnitureId', async(req, res, next) => {
+    try {
 
-    res.json({ ok: true });
+        await furnitureService.update(req.params.furnitureId, req.body);
+
+        res.json({ ok: true });
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.delete('/:furnitureId', async(req, res) => {
-    await furnitureService.delete(req.params.furnitureId);
+router.delete('/:furnitureId', async(req, res, next) => {
+    try {
 
-    res.json({ ok: true });
+        await furnitureService.delete(req.params.furnitureId);
+
+        res.json({ ok: true });
+    } catch (error) {
+        next(error);
+    }
 });
 module.exports = router;

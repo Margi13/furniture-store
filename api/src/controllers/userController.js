@@ -21,7 +21,7 @@ router.post('/register', async(req, res, next) => {
     }
 });
 
-router.post('/login', async(req, res) => {
+router.post('/login', async(req, res, next) => {
     let { email, password } = req.body;
 
     try {
@@ -34,10 +34,7 @@ router.post('/login', async(req, res) => {
         });
 
     } catch (error) {
-        res.json({
-            type: 'error',
-            message: error.message
-        })
+        next(error);
     }
 });
 
