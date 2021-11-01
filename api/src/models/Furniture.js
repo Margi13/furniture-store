@@ -8,7 +8,11 @@ const furnitureSchema = mongoose.Schema({
     description: String,
     price: Number,
     img: String,
-    material: String
+    material: String,
+    ownerId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 
