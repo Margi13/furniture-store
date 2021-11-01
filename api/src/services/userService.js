@@ -26,5 +26,5 @@ exports.login = async({ email, password }) => {
 
     let token = await jwt.sign(payload, JWT_SECRET);
 
-    return token;
+    return { user, token };
 }
