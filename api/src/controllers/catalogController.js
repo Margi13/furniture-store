@@ -19,5 +19,9 @@ router.get('/:furnitureId', async(req, res) => {
 
     res.json(furniture);
 });
+router.put('/:furnitureId', async(req, res) => {
+    await furnitureService.update(req.params.furnitureId, req.body);
 
+    res.json({ ok: true });
+});
 module.exports = router;
