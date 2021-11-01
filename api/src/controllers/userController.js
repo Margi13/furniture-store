@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const userService = require('../services/userService');
 
-router.post('/register', async(req, res) => {
+router.post('/register', async(req, res, next) => {
 
     let { email, password } = req.body;
 
@@ -17,10 +17,7 @@ router.post('/register', async(req, res) => {
         });
 
     } catch (error) {
-        res.json({
-            type: 'error',
-            message: error.message
-        })
+        next(error);
     }
 });
 
