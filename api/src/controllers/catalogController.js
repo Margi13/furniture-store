@@ -1,10 +1,13 @@
 const router = require('express').Router();
+const furnitureService = require('../services/furnitureService');
 
-router.get('/', (req, res) => {
-    res.json([]);
+router.get('/', async(req, res) => {
+    let furniture = await furnitureService.getAll();
+    res.json(furniture);
 });
-router.post('/', (req, res) => {
-    console.log(req.body);
+router.post('/', async(req, res) => {
+    await furnitureService.create(req.body);
+
     res.json({ ok: true });
 })
 
