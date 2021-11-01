@@ -9,7 +9,7 @@ router.get('/', async(req, res) => {
     res.json(furniture);
 });
 router.post('/', isAuth, async(req, res) => {
-    await furnitureService.create({...req.body, ownerId: req.user._id });
+    await furnitureService.create({...req.body, _ownerId: req.user._id });
 
     res.json({ ok: true });
 });
@@ -19,8 +19,15 @@ router.get('/:furnitureId', async(req, res) => {
 
     res.json(furniture);
 });
+
 router.put('/:furnitureId', async(req, res) => {
     await furnitureService.update(req.params.furnitureId, req.body);
+
+    res.json({ ok: true });
+});
+
+router.delete('/:furnitureId', async(req, res) => {
+    await furnitureService.delete(req.params.furnitureId);
 
     res.json({ ok: true });
 });
