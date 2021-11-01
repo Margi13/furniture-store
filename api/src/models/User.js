@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    refreshToken: String
 });
 
 userSchema.pre('save', function(next) {

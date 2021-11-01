@@ -24,11 +24,11 @@ exports.login = async({ email, password }) => {
         email: user.email
     };
 
-    let token = await jwt.sign(payload, JWT_SECRET);
-    if (!token) {
+    let accessToken = await jwt.sign(payload, JWT_SECRET, { expiresIn: '1m' });
+    let refreshToken = await jwt.sign({}, 'RREFRESHSECRET', { expiresIn: '7d' });
 
-        return { user, token };
-    } else {
-        throw new Error('Cannot make token for user');
-    }
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    return { user, accessToken, refreshToken };
 }

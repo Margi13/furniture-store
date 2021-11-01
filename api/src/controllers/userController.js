@@ -8,12 +8,13 @@ router.post('/register', async(req, res, next) => {
 
     try {
         let user = await userService.register({ email, password });
-        let { token } = await userService.login({ email, password });
+        let { accessToken, refreshToken } = await userService.login({ email, password });
 
         res.json({
             _id: user._id,
             email: user.email,
-            accessToken: token
+            accessToken,
+            refreshToken
         });
 
     } catch (error) {
@@ -25,12 +26,13 @@ router.post('/login', async(req, res, next) => {
     let { email, password } = req.body;
 
     try {
-        let { user, token } = await userService.login({ email, password });
+        let { user, accessToken, refreshToken } = await userService.login({ email, password });
 
         res.json({
             _id: user._id,
             email: user.email,
-            accessToken: token
+            accessToken,
+            refreshToken
         });
 
     } catch (error) {
