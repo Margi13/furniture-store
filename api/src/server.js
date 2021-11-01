@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const { PORT, DB_CONNECTION_STRING } = require('./constants')
 const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/furniture')
+mongoose.connect(DB_CONNECTION_STRING)
     .then(() => {
         console.log('DB Connected');
     })
@@ -22,4 +23,5 @@ app.get('/', (req, res) => {
 });
 
 app.use(routes);
-app.listen(3030, () => console.log('App is running on port 3030'));
+
+app.listen(PORT, () => console.log(`App is running on port ${PORT}`));
