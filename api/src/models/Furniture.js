@@ -9,7 +9,7 @@ const furnitureSchema = mongoose.Schema({
     price: Number,
     img: String,
     material: String,
-    ownerId: {
+    _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }
