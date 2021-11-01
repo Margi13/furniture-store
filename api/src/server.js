@@ -26,5 +26,9 @@ app.get('/', (req, res) => {
 });
 
 app.use(routes);
-
+app.use((err, req, res, next) => {
+    if (err) {
+        res.status(err.statusCode || 400).json({ message: err.message });
+    }
+});
 app.listen(PORT, () => console.log(`App is running on port ${PORT}`));
