@@ -25,6 +25,10 @@ exports.login = async({ email, password }) => {
     };
 
     let token = await jwt.sign(payload, JWT_SECRET);
+    if (!token) {
 
-    return { user, token };
+        return { user, token };
+    } else {
+        throw new Error('Cannot make token for user');
+    }
 }
